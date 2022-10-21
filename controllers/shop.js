@@ -1,14 +1,11 @@
 const Product = require('../models/product');
 const Cart = require('../models/cart');
+const ITEMS_PER_PAGE = 2;
 
 exports.getProducts = (req, res, next) => {
   Product.findAll()
     .then(products => {
-      res.render('shop/product-list', {
-        prods: products,
-        pageTitle: 'All Products',
-        path: '/products'
-      });
+      res.json({products, sucess: true});
     })
     .catch(err => {
       console.log(err);
@@ -38,12 +35,32 @@ exports.getProduct = (req, res, next) => {
 };
 
 exports.getIndex = (req, res, next) => {
-  Product.findAll()
-    .then(products => {
-      res.render('shop/index', {
-        prods: products,
-        pageTitle: 'Shop',
-        path: '/'
+  const page = +req.query.page;
+  let totalItems;
+
+  Product.count()
+    .then(numProducts => {
+      totalItems = numProducts;
+      return Product.findAll({
+          offset: (page - 1)*(ITEMS_PER_PAGE), 
+          limit: ITEMS_PER_PAGE
+        });
+    })
+    .then(limitedProducts => {
+      // res.render('shop/index', {
+      //   prods: products,
+      //   pageTitle: 'Shop',
+      //   path: '/'
+      // });
+      res.status(200).json({
+        products: limitedProducts,
+        totalProducts: totalItems,
+        currentPage: page,
+        hasNextPage: (page*ITEMS_PER_PAGE) < totalItems,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
       });
     })
     .catch(err => {
@@ -57,11 +74,12 @@ exports.getCart = (req, res, next) => {
       return cart
         .getProducts()
         .then(products => {
-          res.render('shop/cart', {
-            path: '/cart',
-            pageTitle: 'Your Cart',
-            products: products
-          });
+          // res.render('shop/cart', {
+          //   path: '/cart',
+          //   pageTitle: 'Your Cart',
+          //   products: products
+          // });
+          res.json({products: products, sucess: true});
         })
         .catch(err => console.log(err));
     })
@@ -69,9 +87,15 @@ exports.getCart = (req, res, next) => {
 };
 
 exports.postCart = (req, res, next) => {
-  const prodId = req.body.productId;
+  console.log('post req called');
+
+  //res.status(200).json({sucess: true});
+  const prodId = req.body.id;
+  if(!prodId) {
+    res.status(400).json({success: false, message: 'product Id missing'});
+  }
   let fetchedCart;
-       let newQuantity = 1;
+  let newQuantity = 1;
   req.user.getCart()
     .then(cart => {
       fetchedCart = cart;
@@ -95,9 +119,11 @@ exports.postCart = (req, res, next) => {
       });
     })
     .then(() => {
-      res.redirect('/cart');
+      res.status(200).json({success: true, message: 'product added to cart'});
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      res.status(500).json({success: false, message: err});
+    });
 };
 
 exports.postCartDeleteProduct = (req, res, next) => {
