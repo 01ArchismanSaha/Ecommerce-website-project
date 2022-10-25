@@ -1,5 +1,7 @@
 const Product = require('../models/product');
 const Cart = require('../models/cart');
+const OrderItem = require('../models/order_item');
+const User = require('../models/user');
 const ITEMS_PER_PAGE = 2;
 
 exports.getProducts = (req, res, next) => {
@@ -128,18 +130,47 @@ exports.postCart = (req, res, next) => {
 
 exports.postCartDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
+  //console.log('this is req body : ',req.body);
   req.user.getCart()
     .then(cart => {
       return cart.getProducts({where: {id: prodId}});
     })
     .then(products => {
+      //console.log('FOUND THE ITEM TO DELETE');
       const product = products[0];
       return product.cartItem.destroy();
     })
     .then(result => {
-      res.redirect('/cart');
+      res.status(200).json({message: 'product deleted', success: true})
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      res.status(500).json({message: err, success: false});
+    });
+};
+
+exports.postOrders = async (req, res, next) => {
+  const newOrder = await req.user.createOrder();
+  const newOrderId = newOrder.id;
+
+  req.user.getCart()
+    .then(cart => {
+      fetchedCart = cart;
+      return cart.getProducts();
+    })
+    .then(products => {
+      products.forEach(product => {
+        newOrder.addProduct(product, 
+          {through: {quantity: product.cartItem.quantity}}
+        );
+      })
+      return fetchedCart.destroy();
+    })
+    .then(result => {
+      res.status(200).json({newOrderId, success: true});
+    })
+    .catch(err => {
+      res.status(500).json({message: err, success: false});
+    })
 };
 
 exports.getOrders = (req, res, next) => {
