@@ -174,10 +174,28 @@ exports.postOrders = async (req, res, next) => {
 };
 
 exports.getOrders = (req, res, next) => {
-  res.render('shop/orders', {
-    path: '/orders',
-    pageTitle: 'Your Orders'
-  });
+  let result = [];
+  
+  req.user.getOrders()
+    .then(async (orders) => {
+      for(let i = 0 ; i < orders.length; i++) {
+        let productsArray = [];
+        let ORDERS = {order_id: orders[i].id};
+        const orderItems = await OrderItem.findAll({where: {orderId: orders[i].id}});
+        
+        for(let i = 0; i < orderItems.length; i ++) {
+          const product = await Product.findByPk(orderItems[i].dataValues.productId);
+          productsArray.push(product);
+        }
+        ORDERS['products'] = productsArray;
+        result.push(ORDERS);
+      }
+      //console.log('final result :', result);
+      res.status(200).json({data: result, success: true});
+    })
+    .catch(err => {
+      res.status(500).json({message: err, success: false});
+    })
 };
 
 exports.getCheckout = (req, res, next) => {
