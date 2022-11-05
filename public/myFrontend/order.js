@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', getOrders);
 
 async function getOrders() {
-    const orders = await axios.get('http://localhost:3000/orders');
+    const orders = await axios.get('http://54.199.219.87:3000/orders');
 
     //console.log(orders.data);
 
