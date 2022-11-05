@@ -1,0 +1,240 @@
+@import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
+#nav-bar, #nav-bar nav {
+    display: flex;
+    /* justify-content: flex-start; */
+    justify-content: space-evenly;
+}
+
+#nav-bar nav {
+    text-decoration: none;
+    display: flex;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: 200;
+    justify-content: center;
+    list-style-type: none;
+    border-bottom: 0.1rem solid white;
+    position: fixed;
+    top: 0%;
+    background: black;
+    width: 100%;
+    z-index: 1;
+}
+
+.nav-items a {
+    color: white;
+}
+
+
+#about-container {
+    display: flex;
+}
+
+#heading-bar {
+    text-align: center;
+    margin: 0;
+    padding: 0px;
+    background: #777;
+    color: white;
+}
+
+#heading-bar h1 {
+    padding: 40px;
+    font-size: 100px;
+}
+
+#open-cart-btn {
+    border: 2px solid #56CCF2;
+    border-radius: 7px;
+    padding: 2px 10px;
+    position: absolute;
+    right: 2%;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+#open-cart-btn:hover,
+#open-cart-btn.active {
+    border: 2px solid #56CCF2;
+    background-color: #56CCF2;
+}
+body {
+    text-align: center;
+}
+
+img {
+    max-height: 250px;
+    max-width: 250px;
+}
+
+footer {
+    display: flex;
+}
+
+.cart-row{
+    font-size:18px;
+    display:flex;
+}
+.cart-header{
+    font-size:1.2rem;
+    font-weight: bold;
+}
+
+.cart__item-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin: auto;
+    width: 40rem;
+    max-width: 90%;
+  }
+  
+  .cart__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  }
+  
+  .cart__item h1,
+  .cart__item h2 {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    margin: 0;
+  }
+.cart-column{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    margin-right: 1.5em;
+    padding-bottom: 10px;
+    margin-top: 10px;
+}
+.cart-total {
+    display: flex;
+    flex-direction: row-reverse;
+    font-size: 1.2rem;
+    margin: 20px;
+}
+.cart-items {
+    width: 25rem;
+    height: 30rem;
+    top: 8%;
+    position: fixed;
+    z-index: 2;
+    background-color: white;
+    border: 1px solid red;
+    right: 0;
+    visibility: hidden;
+}
+
+.active {
+    visibility: visible;
+}
+
+.cart-heading {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cart-heading button {
+    height: 1.5rem;
+    width: 2.5rem;
+    margin-top: 1.2rem;
+    cursor: pointer;
+    border: 1px solid grey;
+    margin-right: 1rem;
+}
+
+.cart-heading button:hover{
+    border: 1px solid #56ccf2;
+    background-color: white;
+    color: #56ccf2;
+}
+
+.toast {
+    background-color: #56ccf2;
+    border-radius: 5px;
+    color: rgb(0, 0, 0);
+    padding: 2rem;
+    margin: 1rem;
+}
+
+#container {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+#merch, #music {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px 30px;
+}
+
+#music-items, #merch-items {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:space-around
+}
+
+#music-items div{
+    margin: 20px;
+}
+
+.pagination button {
+    background-color: white;
+    border: 2px solid rgb(17, 206, 206);
+    color: rgb(17, 206, 206);
+    padding: 0.5rem;
+}
+
+.pagination button:hover{
+    border: 2px solid #56ccf2;
+    background-color: #56ccf2;
+    color: white;
+}
+
+.pagination button.active{
+    border: 2px solid #56ccf2;
+    background-color: #56ccf2;
+    color: white;
+}
+
+
+footer{
+    display:flex;
+    margin-top:40px;
+    padding:20px;
+    background: #56CCF2;
+}
+footer .footer-title{
+    text-align: center;
+    color:white;
+    width:50%;
+    font-size:50px;
+    font-weight:bold;
+    margin:0 auto;
+}
+footer .footer-icons{
+    width:50%;
+    display:flex;
+    align-items:center;
+    justify-content: space-around;
+}
+.footer-icons ul{
+    list-style-type: none;
+    display:flex;
+}
+.footer-icons li{
+    padding:10px;
+    margin:0px 20px;
+}
+.footer-icons li:hover{
+    background:rgb(17, 206, 206);
+}
+.footer-icons img{
+    width:30px;
+}

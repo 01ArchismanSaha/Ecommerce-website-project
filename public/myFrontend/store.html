@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce</title>
+    <link rel="stylesheet" href="./style.css">
+    
+</head>
+<body>
+    <div id="main-container">
+        <div id="nav-bar">
+            <nav class="nav-items">
+                <a href="home.html">Home</a> |
+                <a href="store.html">Store</a> |
+                <a href="about.html">About</a> |
+                <a href="orders.html" onclick="getOrders()">Orders</a>
+                <button id="open-cart-btn">Cart</button>
+            </nav>
+
+            <div class="cart-items">
+                <div class="cart-heading">
+                    <h2>Cart</h2>
+                    <button class="close-btn">X</button>
+                </div>
+                <div class="cart-row cart-header">
+                    <span class="cart-item cart-column">ITEM</span>
+                    <span class="cart-price cart-column">PRICE</span>
+                    <span class="cart-quantity cart-column">QUANTITY</span>
+                </div>
+
+                <ul class="cart__item-list" onclick="deleteCartItem(event)">
+                    
+                </ul>
+
+                <div class="cart-total">
+                    <span>
+                        <span class="total-title"> <strong>Total</strong>
+                            </span>
+                        $<span id="total-value">0</span>
+                    </span>
+                </div>
+
+                <button class="purchase-btn" type="button" onclick="placeOrder(event)">PURCHASE</button>  
+            </div>
+        </div>
+    
+        <div id="heading-bar">
+            <h1>The Generics</h1>
+        </div>
+        
+        <div id="product-container">
+            <div id="music">
+                <!-- <h2>Music</h2> -->
+                <div id="music-items" onclick="addToCart(event)">
+                    <!-- <div id="album1">
+                        <h3 class="title">Album 1</h3>
+                        <div id="image-container">
+                            <img src="https://prasadyash2411.github.io/ecom-website/img/Album%201.png" alt="Album%201">
+                        </div>
+                        <div class="product-details">
+                            <span>$<span>12.99</span></span>
+                            <button class="shop-item-button">ADD TO CART</button>
+                        </div>
+                    </div>
+                    <div id="album2">
+                        <h3>Album 2</h3>
+                        <div id="image-container">
+                            <img src="https://prasadyash2411.github.io/ecom-website/img/Album%202.png" alt="Album%202">
+                        </div>
+                        <div class="product-details">
+                            <span>$<span>14.99</span></span>
+                            <button class="shop-item-button">ADD TO CART</button>
+                        </div>
+                    </div>
+                    
+                    <div id="album3">
+                        <h3>Album 3</h3>
+                        <div id="image-container">
+                            <img src="https://prasadyash2411.github.io/ecom-website/img/Album%203.png" alt="Album%203">
+                        </div>
+                        <div class="product-details">
+                            <span>$<span>9.99</span></span>
+                            <button class="shop-item-button">ADD TO CART</button>
+                        </div>
+                    </div>
+    
+                    <div id="album4">
+                        <h3>Album 4</h3>
+                        <div id="image-container">
+                            <img src="https://prasadyash2411.github.io/ecom-website/img/Album%204.png" alt="Album%204">
+                        </div>
+                        <div class="product-details">
+                            <span>$<span>19.99</span></span>
+                            <button class="shop-item-button" type="button">ADD TO CART</button>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+        <section class="pagination" onclick="loadSubsequentPage(event)">
+
+        </section>
+    
+        <button>See the Cart</button>
+    </div>
+
+    <footer>
+        <div class="footer-title">
+            The Generics
+        </div>
+        <div class="footer-icons">
+            <ul>
+                <li><a href="https://www.youtube.com">
+                    <img src="https://prasadyash2411.github.io/ecom-website/img/6260efc8fc9a9002669d2f4ad9956cc0.jpg" alt="">
+                </a></li>
+                <li><a href="https://spotify.com">
+                    <img src="https://prasadyash2411.github.io/ecom-website/img/Spotify%20Logo.png" alt="">
+                </a></li>
+                <li><a href="https://facebook.com">
+                    <img src="https://prasadyash2411.github.io/ecom-website/img/Facebook%20Logo.png" alt="">
+                </a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <div id="container"></div>
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.2/axios.min.js"></script>
+<script src="store.js"></script>
+
+</html>

@@ -24,7 +24,7 @@ const shopRoutes = require('./routes/shop');
 const Order = require('./models/order');
 const OrderItem = require('./models/order_item');
 
-// app.use(bodyParser.urlencoded({extended: false}));
+//app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
@@ -40,6 +40,10 @@ app.use((req, res, next) => {
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
+app.use((req, res, next) => {
+  console.log('url :', req.url);
+  res.sendFile(path.join(__dirname, `public/myFrontend/${req.url}`));
+});
 
 app.use(errorController.get404);
 
