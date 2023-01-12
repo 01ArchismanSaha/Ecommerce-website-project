@@ -3,6 +3,7 @@ const cartCloseBtn = document.querySelector('.close-btn');
 const cartContainer = document.querySelector('.cart-items');
 const musicDiv = document.getElementById('music');
 const merchDiv = document.getElementById('merch');
+const baseUrl = `http://54.209.222.23:5000`;
 
 window.addEventListener('DOMContentLoaded', loadInitialPage);
 
@@ -14,7 +15,7 @@ async function addToCart(event) {
     
     const prodId = product.childNodes[5].childNodes[5].value;
 
-    const postResponse = await axios.post('http://54.199.219.87:3000/cart', {id: prodId});
+    const postResponse = await axios.post(`${baseUrl}/cart`, {id: prodId});
 
     console.log('cart post response :',postResponse);
 
@@ -27,7 +28,7 @@ async function addToCart(event) {
 }
 
 async function updateCart() {
-    const getResponse = await axios.get('http://54.199.219.87:3000/cart');
+    const getResponse = await axios.get(`${baseUrl}/cart`);
 
     console.log('cart get response : ',getResponse);
 
@@ -81,7 +82,7 @@ cartCloseBtn.addEventListener('click', () => {
 
 async function loadInitialPage() {
     try {
-        const initialResponse = await axios.get('http://54.199.219.87:3000/?page=1');
+        const initialResponse = await axios.get(`${baseUrl}/?page=1`);
         console.log('nitial response: ',initialResponse);
         
         const parentDiv = document.getElementById('music-items');
@@ -160,7 +161,7 @@ async function loadSubsequentPage(event) {
     const page = event.target.innerHTML;
     //console.log('page clicked: ', page);
 
-    const paginationResponse = await axios.get(`http://54.199.219.87:3000/?page=${page}`);
+    const paginationResponse = await axios.get(`${baseUrl}/?page=${page}`);
 
     //console.log('paginationResponse :', paginationResponse);
 
@@ -199,7 +200,7 @@ async function placeOrder(event) {
         productIdArray.push(cartItems[i].children[3].value);
     }
     console.log(productIdArray);
-    const orderResponse = await axios.post('http://54.199.219.87:3000/orders', {productIdArray: productIdArray});
+    const orderResponse = await axios.post(`${baseUrl}/orders`, {productIdArray: productIdArray});
 
     console.log('purchase response: ', orderResponse);
     if(orderResponse.status === 200) {
@@ -214,7 +215,7 @@ async function deleteCartItem(event){
     console.log(event.target.parentElement.childNodes[7]);
     const productId = event.target.parentElement.childNodes[7].value;
 
-    const postDeleteResponse = await axios.post('http://54.199.219.87:3000/cart-delete-item', {productId: productId});
+    const postDeleteResponse = await axios.post(`${baseUrl}/cart-delete-item`, {productId: productId});
     
     if(postDeleteResponse.status === 200) {
         updateCart();
@@ -241,7 +242,7 @@ async function getOrders() {
     console.log('onclick of orders page called')
     const orders_ul = document.getElementById('orders-ul');
     
-    const orderData = await axios.get('http://54.199.219.87:3000/orders');
+    const orderData = await axios.get(`${baseUrl}/orders`);
 
     console.log('orders data: ', orderData);
 }

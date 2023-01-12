@@ -1,7 +1,9 @@
+const baseUrl = `http://54.209.222.23:5000`;
+
 window.addEventListener('DOMContentLoaded', getOrders);
 
 async function getOrders() {
-    const orders = await axios.get('http://54.199.219.87:3000/orders');
+    const orders = await axios.get(`${baseUrl}/orders`);
 
     //console.log(orders.data);
 
